@@ -1,25 +1,6 @@
 <template>
-  <div id="Scenario">
-    <v-card v-for="scenario in scenarios">
-      <v-card-text v-if="scenario.disabled===undefined" v-ripple="{class:'ripple--text'}" class="touch">
-        <v-card-row>
-          <img height="80rem" :src="imgsrc(scenario.id)" />
-          <div class="ml-4">
-            <h3 class="ma-0 text-xs-left"><strong>{{ scenarioName(scenario.id) }}</strong></h3>
-            <p class="ma-0  text-xs-left">{{ formatDatetime(scenario.available_time)+" ~ "+formatDatetime(scenario.expire_time) }}</p>
-          </div>
-        </v-card-row>
-      </v-card-text>
-      <v-card-text v-else class="disableCard">
-        <v-card-row>
-          <img height="80rem" :src="imgsrc(scenario.id)" />
-          <div class="ml-4">
-            <h3 class="ma-0 text-xs-left"><strong>{{ scenarioName(scenario.id) }}</strong></h3>
-            <p class="ma-0  text-xs-left">{{ scenario.disabled }}</p>
-          </div>
-        </v-card-row>
-      </v-card-text>
-    </v-card>
+  <div id="Scenario" class="pa-4">
+    <scenario-item v-for="scenario in scenarios" :scenario="scenario"></scenario-item>
   </div>
 </template>
 <script>
@@ -29,122 +10,76 @@
       this.$emit('view', this.meta())
     },
 
-    preFetch() {
-      return this.methods.meta()
-    },
-
     methods: {
       meta() {
         return {
           title: '快速通關'
         }
-      },
-      imgsrc(url) {
-        let filename = (url.indexOf('lunch') != -1) ? 'lunch' : url
-        return require('public/' + filename + '.png')
-      },
-      scenarioName(id) {
-        let strings = {
-          day1checkin: "Day 1 報到",
-          day2checkin: "Day 2 報到",
-          day1lunch: "Day 1 午餐",
-          day2lunch: "Day 2 午餐",
-          kit: "迎賓袋",
-          vipkit: "獨家紀念品"
-        }
-        return strings[id]
-      },
-      formatDatetime(time) {
-        let datetime = new Date(time * 1000)
-        return this.leftpad(datetime.getMonth() + 1, 2) + "/" + this.leftpad(datetime.getDate(), 2) + " " +
-          this.leftpad(datetime.getHours(), 2) + ":" + this.leftpad(datetime.getMinutes(), 2)
-      },
-      disabledCard(scenario) {
-        return {
-          disableCard: scenario.disabled !== undefined
-        }
-      },
-      leftpad(number, targetLength) {
-        var output = number + '';
-        while (output.length < targetLength) {
-          output = '0' + output;
-        }
-        return output;
       }
     },
     data() {
       return {
-        "scenarios": [{
-            "available_time": 1471678200,
+        "scenarios": [
+          {
             "countdown": 0,
-            "id": "day1checkin",
+            "available_time": 1488846600,
+            "order": 0,
+            "id": "checkin",
+            "expire_time": 1489827600,
+            "attr": {},
+            "used": 1489424131,
+            "display_text": {
+              "en-US": "Check-in",
+              "zh-TW": "報到"
+            }
+          },
+          {
+            "countdown": 30,
+            "available_time": 1488846600,
             "order": 1,
-            "attr": {},
-            "expire_time": 1471712400
-          },
-          {
-            "available_time": 1471681800,
-            "countdown": 30,
             "id": "kit",
+            "expire_time": 1489827600,
+            "attr": {},
+            "used": 1489424133,
+            "display_text": {
+              "en-US": "Welcome Kit",
+              "zh-TW": "小貓袋"
+            }
+          },
+          {
+            "countdown": 30,
+            "available_time": 1488858600,
             "order": 2,
-            "attr": {},
-            "expire_time": 1471788000,
-            "disabled": "Haven't Check-in"
+            "id": "lunch",
+            "expire_time": 1489816800,
+            "attr": {
+              "diet": "meat"
+            },
+            "display_text": {
+              "en-US": "Lunch",
+              "zh-TW": "午餐"
+            }
           },
           {
-            "available_time": 1471694400,
             "countdown": 30,
-            "id": "day1lunch",
+            "available_time": 1488844800,
             "order": 3,
-            "attr": {
-              "diet": "meat"
-            },
-            "expire_time": 1471701600,
-            "disabled": "Haven't Check-in"
-          },
-          {
-            "available_time": 1471764600,
-            "countdown": 0,
-            "id": "day2checkin",
-            "order": 4,
-            "attr": {},
-            "expire_time": 1471798800
-          },
-          {
-            "available_time": 1471781400,
-            "countdown": 30,
-            "id": "day2lunch",
-            "order": 5,
-            "attr": {
-              "diet": "meat"
-            },
-            "expire_time": 1471788000,
-            "disabled": "Haven't Check-in"
-          },
-          {
-            "available_time": 1471680900,
-            "countdown": 30,
             "id": "vipkit",
-            "order": 6,
+            "expire_time": 1489827600,
+            "display_text": {
+              "en-US": "Special Gift",
+              "zh-TW": "獨家紀念品"
+            },
             "attr": {},
-            "expire_time": 1471788000,
             "disabled": "For Supporters Only"
           }
         ]
       }
     }
   }
+
 </script>
 
 <style>
-  .card {
-    margin-bottom: 2.5rem;
-  }
-  
-  .disableCard {
-    opacity: 0.4;
-  }
-  .touch:hover {
-    cursor: pointer;
-  }
+
 </style>

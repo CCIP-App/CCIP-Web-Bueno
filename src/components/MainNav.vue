@@ -1,7 +1,7 @@
 <template>
   <header>
     <v-toolbar fixed>
-      <v-toolbar-side-icon v-side-bar:mainsidebar="" floating class="side-icon hidden-md-and-up" v-on:click.native.stop="$emit('sidebar')" ></v-toolbar-side-icon>
+      <v-toolbar-side-icon class="ma-0 side-icon hidden-md-and-up" v-on:click.native.stop="$emit('sidebar')" ></v-toolbar-side-icon>
       <div class="navbar__side-title">
         <h1 class="text-md-left">{{title}}</h1>
       </div>
@@ -46,6 +46,7 @@
     text-transform: uppercase;
     font-size: 2rem;
   }
+  
 
   
 </style>

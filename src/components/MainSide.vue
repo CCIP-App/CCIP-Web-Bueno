@@ -1,10 +1,9 @@
 <template>
-  <v-sidebar id="mainsidebar" fixed>
+  <v-sidebar id="mainsidebar" v-model="isActive" fixed>
     <div class="sitcon">
       <a href="http://sitcon.org/">
-        <img src="~public/stone.png" width="80px" />
+        <img src="~public/sitcon.svg" width="80%" />
       </a>
-      <br><br>
       <hr>
     </div>
     <v-list dense>
@@ -26,6 +25,7 @@
     name: 'main-side',
     data() {
       return {
+        isActive: true,
         items: [{
             title: "快速通關",
             href: "/scenario",
@@ -42,6 +42,21 @@
             avatar: 'announcement'
           },
           {
+            title: '程式碼拼圖',
+            href: '/puzzle',
+            avatar: 'extension'
+          },
+          {
+            title: '我的票卷',
+            href: '/myticket',
+            avatar: 'assignment_ind'
+          },
+          {
+            title: 'Telegram',
+            href: '/telegram',
+            avatar: ''
+          },
+          {
             title: "IRC Log",
             href: "/irclog",
             avatar: 'question_answer'
@@ -55,8 +70,24 @@
             title: "工作人員",
             href: "/staff",
             avatar: 'group'
+          },
+          {
+            title: 'Star on GitHub',
+            href: '/myticket',
+            avatar: 'stars'
           }
         ]
+      }
+    },
+    props: {
+      value: Boolean,
+    },
+    watch: {
+      isActive () {
+        this.$emit('input', this.isActive)
+      },
+      value () {
+        this.isActive = this.value
       }
     }
   }
@@ -85,9 +116,8 @@
           padding: 0
   
   .sitcon
-    background-color: $theme.primary
+    background-color: #001D4A
     text-align: center
-    padding-top: 16px
     color: #fff
     
     a
@@ -100,16 +130,22 @@
     h1
       color: #fff
       font-size: 3em  
-  
+
 
   
 
   .list
-    margin: 0 0rem !important
+    margin: 3px 0px !important
 
     .list__tile
       color: $grey.darken-3
     
     .icon
       color: $grey.darken-3 !important
+    .list__tile--active
+      background-color: $grey.lighten-2
+      color: $theme.primary 
+      .icon
+        color: $theme.primary !important
+
 </style>

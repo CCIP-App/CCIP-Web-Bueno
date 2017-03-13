@@ -34,9 +34,6 @@
       this.$emit('view', this.meta())
     },
 
-    preFetch() {
-      return this.methods.meta()
-    },
 
     data () {
       return {

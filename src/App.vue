@@ -1,15 +1,15 @@
 <template>
   <v-app left-fixed-sidebar top-fixed-navbar>
     
-    <main-nav v-bind:title="title"></main-nav>
+    <main-nav v-bind:title="title"  v-on:sidebar="sidebar = !sidebar"></main-nav>
 
     <main>
-      <main-side></main-side>
+      <main-side v-model="sidebar"></main-side>
 
       <v-content>
         <v-container fluid>
           <transition name="slide" mode="out-in">
-            <router-view class="pa-4 pt-5 mt-5" @view="meta"></router-view>
+            <router-view class="mt-5" @view="meta"></router-view>
           </transition>
         </v-container>
       </v-content>
@@ -19,12 +19,10 @@
 
 <script>
   export default {
-    mounted () {
-      this.$vuetify.init()
-    },
 
     data () {
       return {
+        sidebar: true,
         title : ""
       }
     },
