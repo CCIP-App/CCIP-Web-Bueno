@@ -1,75 +1,16 @@
 <template>
-  <v-app top-navbar>
-    <header>
-      <v-toolbar>
-        <v-toolbar-logo>Vuetify</v-toolbar-logo>
-        <v-toolbar-items>
-          <v-toolbar-item>
-            
-          </v-toolbar-item>
-        </v-toolbar-items>
-      </v-toolbar>
-    </header>
+  <v-app left-fixed-sidebar top-fixed-navbar>
+    
+    <main-nav v-bind:title="title"></main-nav>
+
     <main>
+      <main-side></main-side>
+
       <v-content>
         <v-container fluid>
-          <div id="getting-started">
-            <v-card class="secondary">
-              <v-card-text class="text-xs-center">
-                <img src="public/v.png">
-              </v-card-text>
-            </v-card>
-            <p class="text-xs-center">Welcome to the Vuetify Webpack Template</p>
-            <h2 class="primary--text">Important Links</h2>
-            <div class="intro">
-              <v-list>
-                <v-list-item>
-                  <v-list-tile href="http://vuetifyjs.com" target="_blank">
-                    <v-list-tile-title>
-                      Vuetify Documentation
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-tile href="https://github.com/vuetifyjs/webpack-ssr" target="_blank">
-                    <v-list-tile-title>
-                      Vuetify SSR Webpack
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-tile href="https://github.com/vuetifyjs/webpack" target="_blank">
-                    <v-list-tile-title>
-                      Vuetify Webpack
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list-item>
-              </v-list>
-              <v-list>
-                <v-list-item>
-                  <v-list-tile href="https://github.com/vuetifyjs/webpack-simple" target="_blank">
-                    <v-list-tile-title>
-                      Vuetify Webpack Simple
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-tile href="http://vuejs.org" target="_blank">
-                    <v-list-tile-title>
-                      Vue Documentation
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list-item>
-                <v-list-item>
-                    <v-list-tile href="https://github.com/vuejs/awesome-vue" target="_blank">
-                      <v-list-tile-title>
-                        Vue Awesome
-                      </v-list-tile-title>
-                    </v-list-tile>
-                </v-list-item>
-              </v-list>
-            </div>
-          </div>
+          <transition name="slide" mode="out-in">
+            <router-view class="pa-4 pt-5 mt-5" @view="meta"></router-view>
+          </transition>
         </v-container>
       </v-content>
     </main>
@@ -78,17 +19,25 @@
 
 <script>
   export default {
+    mounted () {
+      this.$vuetify.init()
+    },
+
     data () {
       return {
-        item: {
-          text: 'Get Started'
-        }
+        title : ""
+      }
+    },
+
+    methods: {
+      meta (obj) {
+        this.title = obj.title
       }
     }
   }
 </script>
 
 <style lang="stylus">
-  @import '../node_modules/vuetify/src/stylus/main'
+  @import './stylus/main'
   @import './css/main.css'
 </style>
