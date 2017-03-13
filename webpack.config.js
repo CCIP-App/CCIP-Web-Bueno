@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
@@ -19,7 +20,11 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          // vue-loader options go here
+          postcss: [
+            require('autoprefixer')({
+              browsers: ['last 5 versions']
+            })
+          ]
         }
       },
       {
@@ -36,6 +41,7 @@ module.exports = {
       }
     ]
   },
+  plugins: [],
   devServer: {
     historyApiFallback: true,
     noInfo: true
@@ -60,6 +66,14 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      title: 'SITCON 通關',
+      minify: {
+        collapseWhitespace: true
+      },
+      environment: process.env.NODE_ENV
     })
   ])
 }

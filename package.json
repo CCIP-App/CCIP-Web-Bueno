@@ -1,13 +1,15 @@
 {
   "name": "ccip-web-bueno",
-  "description": "A CCIP web app for SITCON",
-  "author": "yoyo930021 <yoyo930021@gamil.com>",
+  "description": "A Community Checkin with Interactivity Project for Vue.js Web app",
+  "author": "yoyo930021,Erickson Juang",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot --port=8082 --host=0.0.0.0",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot --port=8080 --host=localhost",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "vue": "^2.1.10",
     "vue-router": "^2.2.0",
     "vue-server-renderer": "^2.1.10",
@@ -15,11 +17,15 @@
     "vuex-router-sync": "^4.1.2"
   },
   "devDependencies": {
+    "autoprefixer": "^6.7.7",
     "buble": "^0.15.1",
     "buble-loader": "^0.4.0",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
+    "favicons-webpack-plugin": "^0.0.7",
     "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.28.0",
+    "offline-plugin": "^4.6.1",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",

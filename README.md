@@ -1,6 +1,6 @@
 # ccip-web-bueno
 
-> A CCIP web app for SITCON
+> A Community Checkin with Interactivity Project for Vue.js Web app
 
 ## Build Setup
 
