@@ -1,0 +1,15 @@
+{
+    "name": "SITCON Pass",
+    "short_name": "SITCON Pass",
+    "icons": [
+        {
+            "src": "public/icon.png",
+            "sizes": "360x360",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fff",
+    "theme_color": "#009FE8"
+}
