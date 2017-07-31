@@ -2,10 +2,10 @@
   <div id='QrcodeReader'>
     <center>
       <h2 class="ma-0" v-if=" title != '' ">{{ title }}</h2>
-      <p v-if="subTitle !== '' ">{{ subTitle }}</p>
-      <div v-if="webrtc" id="camsource" :style="{ width: width, height: height}"></div>
+      <p role="subTitle" v-if="subTitle !== '' ">{{ subTitle }}</p>
+      <div v-if="webrtc" id="camsource"></div>
       <div v-else id="uploadField">
-        <label id="uploadButton" for="upload">
+        <label id="uploadButton" for="upload" />
         <input type="file" id="upload" @change="uploadChange">
       </div>
       <h6 class="ma-0" v-if=" !noResult ">{{ result }}</h6>
@@ -53,7 +53,7 @@ export default {
   mounted() {
     var self = this
     window.w69b.qr.decoding.setWorkerUrl('public/barcode.js/w69b.qrcode.decodeworker.min.js')
-    if (navigator.mediaDevices) {
+    if (navigator.mediaDevices && !window.navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
       self.webrtc = true
       self.scanner = new window.w69b.qr.ui.ContinuousScanner()
       self.scanner.setDecodedCallback(function(result) {
@@ -107,27 +107,33 @@ export default {
 </script>
 
 <style lang="stylus">
-  #camsource {
-    background: #FFF
-    border: 2px solid #FFF
+  #camsource
+    background: rgb(254, 239, 209)
+    border: 2px solid rgb(254, 239, 209)
     border-radius: 15px
     padding: 10px
-  }
-
-  #uploadField {
+    width: 80vw
+    height: 60vw
+    max-width: 320px
+    max-height: 240px
+  #uploadField
     max-width: 300px
-  }
-
-  #uploadButton {
+    @media screen and (max-width: 454px) // must bigger than 454px for two column
+      max-width: 150px
+  #uploadButton
     cursor: pointer
     z-index: 1
     display: block
     margin: auto
-    min-height: 118px
+    min-height: 300px
+    @media screen and (max-width: 454px) // must bigger than 454px for two column
+      min-height: 150px
+    background: url('~public/uploadfile.png')
     background-size: cover
-  }
-
-  #upload {
+    background-repeat: no-repeat
+    background-position: center
+  #upload
     display: none
-  }
+  [role="subTitle"]
+    margin-bottom: 3rem
 </style>

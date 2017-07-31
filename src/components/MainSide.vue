@@ -1,24 +1,21 @@
 <template>
-  <v-sidebar id="mainsidebar" v-model="isActive" fixed>
+  <v-navigation-drawer id="mainsidebar" v-model="isActive" persistent enable-resize-watcher>
     <div class="sitcon">
-      <a href="http://sitcon.org/">
-        <img src="~public/sitcon.svg" width="80%" />
+      <a href="https://coscup.org/">
+        <!-- <img src="~public/conf_logo.png" width="80%" /> -->
       </a>
-      <hr>
     </div>
     <v-list dense>
-      <v-list-item v-for="item in items">
-        <v-list-tile :href="item.href" router ripple>
-          <v-list-tile-action>
-            <v-icon>{{ item.avatar }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list-item>
+      <v-list-tile v-for="item in items" :key="item.title" :href="item.target && item.href" :to="!item.target ? item.href : null" router ripple>
+        <v-list-tile-action>
+          <v-icon>{{ item.avatar }}</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-content>
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
     </v-list>
-  </v-sidebar>
+  </v-navigation-drawer>
 </template>
 <script>
   export default {
@@ -31,18 +28,18 @@
             href: "/scenario",
             avatar: 'local_activity',
           },
-          {
-            title: "議程",
-            href: "/schema",
-            avatar: 'event_note'
-          },
+          // {
+          //   title: "議程",
+          //   href: "/schema",
+          //   avatar: 'event_note'
+          // },
           {
             title: "大會訊息",
             href: "/announcement",
             avatar: 'announcement'
           },
           {
-            title: '程式碼拼圖',
+            title: '開源巔峰挑戰賽',
             href: '/puzzle',
             avatar: 'extension'
           },
@@ -53,27 +50,29 @@
           },
           {
             title: 'Telegram',
-            href: '/telegram',
+            href: 'https://t.me/COSCUPchat',
+            target: '_blank',
             avatar: ''
           },
-          {
-            title: "IRC Log",
-            href: "/irclog",
-            avatar: 'question_answer'
-          },
-          {
-            title: "贊助",
-            href: "/sponsor",
-            avatar: 'redeem'
-          },
-          {
-            title: "工作人員",
-            href: "/staff",
-            avatar: 'group'
-          },
+          // {
+          //   title: "IRC Log",
+          //   href: "/irclog",
+          //   avatar: 'question_answer'
+          // },
+          // {
+          //   title: "贊助",
+          //   href: "/sponsor",
+          //   avatar: 'redeem'
+          // },
+          // {
+          //   title: "工作人員",
+          //   href: "/staff",
+          //   avatar: 'group'
+          // },
           {
             title: 'Star on GitHub',
-            href: '/myticket',
+            href: 'https://github.com/CCIP-App/CCIP-Web-Bueno',
+            target: '_blank',
             avatar: 'stars'
           }
         ]
@@ -92,60 +91,29 @@
     }
   }
 </script>
-<style lang="stylus">
-  @import '../stylus/settings/_variables'
-  
-  .sidebar
-    background-color: #fff
-    
-    &__links
-      margin: 0rem
-      display: flex
-      justify-content: center
-      align-items: center
-      
-      a
-        text-align: center
-        text-decoration: none
-        margin: 0 0rem
-        
-        img
-          height: 25px
-          
-        i
-          padding: 0
-  
+<style lang="stylus">  
   .sitcon
-    background-color: #001D4A
+    background-image: url('~public/nav_header_bg.png')
+    background-size cover
+    height : 180px
     text-align: center
     color: #fff
     
     a
+      display: block
       color: #fff
       text-decoration: none
+      background-image: url('~public/conf_logo.png')
+      background-size: 80%
+      background-position: center
+      width: 100%
+      height: 100%
       
     .gitter
       margin-bottom: 16px
 
     h1
       color: #fff
-      font-size: 3em  
-
-
-  
-
-  .list
-    margin: 3px 0px !important
-
-    .list__tile
-      color: $grey.darken-3
-    
-    .icon
-      color: $grey.darken-3 !important
-    .list__tile--active
-      background-color: $grey.lighten-2
-      color: $theme.primary 
-      .icon
-        color: $theme.primary !important
+      font-size: 3em 
 
 </style>

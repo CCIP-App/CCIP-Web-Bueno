@@ -1,10 +1,8 @@
 <template>
   <header>
-    <v-toolbar fixed>
-      <v-toolbar-side-icon class="ma-0 side-icon hidden-md-and-up" v-on:click.native.stop="$emit('sidebar')" ></v-toolbar-side-icon>
-      <div class="navbar__side-title">
-        <h1 class="text-md-left">{{title}}</h1>
-      </div>
+    <v-toolbar fixed dark id="main-toolbar">
+      <v-toolbar-side-icon v-on:click.native.stop="$emit('sidebar')" ></v-toolbar-side-icon>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
     </v-toolbar>
   </header>
 </template>
@@ -18,35 +16,28 @@
     }
   }
 </script>
-<style scoped>
-  .navbar {
-    align-items: center;
-    color: #fff;
-  }
-  
-  .side-icon {
-    margin: 0 1rem;
-  }
-  
-  .navbar__side-title {
-    display: flex;
-    flex: 1;
-    align-items: space-between;
-    justify-content: space-between;
-    flex-direction: column;
-    margin: 0 1rem;
-  }
-  
-  h1 {
-    letter-spacing: 1px;
-    color: #fff;
-    font-weight: 400;
-    margin: 0;
-    word-break: break-word;
-    text-transform: uppercase;
-    font-size: 2rem;
-  }
-  
-
-  
+<style  lang="stylus" scoped>
+  #main-toolbar
+    background: #009A79;
+    &__logo, &__title
+      white-space: nowrap
+      min-width: 0
+      overflow: hidden
+      text-overflow: ellipsis
+    &__links
+      margin: 1rem
+      display: flex
+      justify-content: center
+      align-items: center
+      a
+        color: #fff
+        text-align: center
+        text-decoration: none
+        margin: 0 .5rem
+        img
+          height: 25px
+        i
+          padding: 0
+        h1
+          font-size: 4vw
 </style>
