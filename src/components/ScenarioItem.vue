@@ -9,7 +9,7 @@
     </v-card-text>
     <v-card-text v-else-if="isUsed">
         <div><img height="80rem" class="disableCard" :src="imgsrc(scenario.id)" />
-        <img class="tick" height="20rem" src="public/tick.png" /></div>
+        <img class="tick" height="20rem" :src="require('public/tick.png')" /></div>
         <div class="ml-4 disableCard">
           <h3 class="ma-0 text-xs-left"><strong>{{ scenario.display_text['zh-TW'] }}</strong></h3>
           <p class="ma-0  text-xs-left">{{ formatDatetime(scenario.available_time)+" ~ "+formatDatetime(scenario.expire_time) }}</p>
