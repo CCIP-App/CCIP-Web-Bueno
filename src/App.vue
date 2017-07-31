@@ -1,7 +1,7 @@
 <template>
   <v-app left-fixed-sidebar top-fixed-navbar>
     
-    <main-side v-model="sidebar"></main-side>
+    <main-side v-model="sidebar" v-bind:userid="user"></main-side>
     <main-nav v-bind:title="title"  v-on:sidebar="sidebar = !sidebar"></main-nav>
 
     <main>
@@ -20,13 +20,15 @@
     data () {
       return {
         sidebar: true,
-        title : ""
+        title : "",
+        user: ""
       }
     },
 
     methods: {
       meta (obj) {
         this.title = obj.title
+        this.user = obj.userId
       }
     }
   }

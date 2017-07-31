@@ -1,6 +1,6 @@
 <template>
   <div id='Announcement' class="pa-4">
-    <v-card v-for="item in announs" :key="item['_id']">
+    <v-card v-for="item in announs" :key="item['_id']['$oid']">
         {{ item['msg_zh'] }}
     </v-card>
   </div>
@@ -27,7 +27,8 @@ export default {
     methods: {
         meta() {
             return {
-                title: '大會公告'
+                title: '大會公告',
+                userId: window.localStorage.getItem('user_id')
             }
         }
     }

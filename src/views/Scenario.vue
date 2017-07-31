@@ -33,7 +33,8 @@
     methods: {
       meta() {
         return {
-          title: '快速通關'
+          title: '快速通關',
+          userId: window.localStorage.getItem('user_id')
         }
       },
       startScenario() {
@@ -41,6 +42,8 @@
         if (window.localStorage.getItem('ccip-token')){
           self.hasToken = true
           api.getStatus(window.localStorage.getItem('ccip-token')).then(function(res){
+            window.localStorage.setItem('user_id',res.data['user_id'])
+            self.$emit('view', self.meta())
             self.scenarios = res.data.scenarios
           }).catch(function(error){
             console.log(error)

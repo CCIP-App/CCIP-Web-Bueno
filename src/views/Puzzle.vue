@@ -16,7 +16,8 @@
     methods: {
       meta() {
         return {
-          title: '開源巔峰挑戰賽'
+          title: '開源巔峰挑戰賽',
+          userId: window.localStorage.getItem('user_id')
         }
       },
       url() {

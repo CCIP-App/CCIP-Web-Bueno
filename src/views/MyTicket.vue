@@ -20,7 +20,8 @@
     methods: {
       meta() {
         return {
-          title: '我的票卷'
+          title: '我的票卷',
+          userId: window.localStorage.getItem('user_id')
         }
       }
     }

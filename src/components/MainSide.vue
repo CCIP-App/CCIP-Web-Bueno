@@ -4,6 +4,7 @@
       <a href="https://coscup.org/">
         <!-- <img src="~public/conf_logo.png" width="80%" /> -->
       </a>
+      <p>{{ userid }}</p>
     </div>
     <v-list dense>
       <v-list-tile v-for="item in items" :key="item.title" :href="item.target && item.href" :to="!item.target ? item.href : null" router ripple>
@@ -80,6 +81,7 @@
     },
     props: {
       value: Boolean,
+      userid: String
     },
     watch: {
       isActive () {
@@ -115,5 +117,12 @@
     h1
       color: #fff
       font-size: 3em 
+    p 
+      position: relative
+      top: -28px;
+      color: black
+      margin-left: 16px;
+      text-align: left
+      font-size: 18px
 
 </style>
