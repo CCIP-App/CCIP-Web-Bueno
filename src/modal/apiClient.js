@@ -1,19 +1,19 @@
 import axios from 'axios'
 var config = {
-  baseURL: 'https://ccip.sitcon.org/',
-  timeout: 1000
+  baseURL: 'https://ccip.coscup.org/',
+  timeout: 3000
 }
 
 var client = axios.create(config)
 
 export default {
   getStatus: (token) => {
-    return client.get('status?token=' + token)
+    return client.get('/status?token=' + token)
   },
   useScenario: (scenario,token) => {
     return client.get('/use/'+scenario+'?token='+token)
   },
   getAnnouncement: () => {
-    return client.get('announcement')
+    return client.get('/announcement')
   },
 }

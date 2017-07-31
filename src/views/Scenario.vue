@@ -1,13 +1,33 @@
 <template>
   <div id="Scenario" class="pa-4">
-    <scenario-item v-for="scenario in scenarios" :scenario="scenario"></scenario-item>
+    <div v-if="hasToken">
+      <scenario-item v-for="scenario in scenarios" :scenario="scenario" :key="scenario.id" @use="useIt" @startCount="startCount" @reload="reload"></scenario-item>
+    </div>
+    <div v-else>
+      <qrcode-reader :enable="true" :noResult="true" title="" subTitle="請透過連結開啟此應用程式，你也可以使用下面掃描 KKTIX 提供的 QR Code" @OnSuccess="OnSuccess"></qrcode-reader>
+    </div>
+    <count-down :scenario="countSce" :enable="countEnable" @close="closeCount"></count-down>
   </div>
 </template>
 <script>
+  import api from '../modal/apiClient'
   export default {
     name: 'Scenario',
+    data() {
+      return {
+        "scenarios": [],
+        "hasToken": false,
+        "countSce": null,
+        "countEnable": false
+      }
+    },
+
     mounted() {
       this.$emit('view', this.meta())
+    },
+
+    beforeMount() {
+      this.startScenario()
     },
 
     methods: {
@@ -15,67 +35,51 @@
         return {
           title: '快速通關'
         }
+      },
+      startScenario() {
+        var self = this
+        if (window.localStorage.getItem('ccip-token')){
+          self.hasToken = true
+          api.getStatus(window.localStorage.getItem('ccip-token')).then(function(res){
+            self.scenarios = res.data.scenarios
+          }).catch(function(error){
+            console.log(error)
+            window.alert('錯誤，請檢查網路連線並使用會場網路')
+          })
+        } else {
+          self.hasToken = false
+        }
+      },
+      OnSuccess(result) {
+        window.localStorage.setItem('ccip-token',result)
+        this.startScenario()
+      },
+      useIt(scenario){
+        var self = this
+        api.useScenario(scenario.id, window.localStorage.getItem('ccip-token')).then(function(res){
+          self.scenarios = res.data.scenarios
+          if( scenario.countdown > 0 ) {
+            self.startCount(scenario)
+            // startCountdownActivity(scenario);
+          }
+        }).catch(function(error){
+          console.log(error)
+          window.alert('錯誤，請檢查網路連線並使用會場網路')
+        })
+      },
+      startCount(scenario) {
+        this.countSce = scenario
+        this.countEnable = true
+      },
+      closeCount(){
+        this.countSce = null
+        this.countEnable = false
+      },
+      reload() {
+        this.startScenario()
       }
     },
-    data() {
-      return {
-        "scenarios": [
-          {
-            "countdown": 0,
-            "available_time": 1488846600,
-            "order": 0,
-            "id": "checkin",
-            "expire_time": 1489827600,
-            "attr": {},
-            "used": 1489424131,
-            "display_text": {
-              "en-US": "Check-in",
-              "zh-TW": "報到"
-            }
-          },
-          {
-            "countdown": 30,
-            "available_time": 1488846600,
-            "order": 1,
-            "id": "kit",
-            "expire_time": 1489827600,
-            "attr": {},
-            "used": 1489424133,
-            "display_text": {
-              "en-US": "Welcome Kit",
-              "zh-TW": "小貓袋"
-            }
-          },
-          {
-            "countdown": 30,
-            "available_time": 1488858600,
-            "order": 2,
-            "id": "lunch",
-            "expire_time": 1489816800,
-            "attr": {
-              "diet": "meat"
-            },
-            "display_text": {
-              "en-US": "Lunch",
-              "zh-TW": "午餐"
-            }
-          },
-          {
-            "countdown": 30,
-            "available_time": 1488844800,
-            "order": 3,
-            "id": "vipkit",
-            "expire_time": 1489827600,
-            "display_text": {
-              "en-US": "Special Gift",
-              "zh-TW": "獨家紀念品"
-            },
-            "attr": {},
-            "disabled": "For Supporters Only"
-          }
-        ]
-      }
-    }
+    
   }
 
 </script>

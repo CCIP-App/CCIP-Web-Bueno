@@ -20,7 +20,7 @@
     methods: {
       meta() {
         return {
-          title: '程式碼拼圖'
+          title: '我的票卷'
         }
       }
     }

@@ -1,16 +1,16 @@
 <template>
-  <v-modal v-model="modal" id='CountDown'>
+  <v-dialog v-model="modal" id='CountDown'>
     <v-card :class="{'default-bg':(diet===''),'dietmeat-bg':(diet==='葷食'),'dietvegen-bg':(diet==='素食'),'finish-bg':(countdown===0)}">
       <v-card-text class="text-xs-center">
         <h3>{{ diet }}</h3>
         <h1>{{ countdown }}</h1>
         <h2 v-if="currentTime!==''">{{ currentTime }}</h2>
       </v-card-text>
-      <v-card-row actions>
-        <v-btn block v-on:click.native.stop="modal = false" class="black--text">close</v-btn>
-      </v-card-row>
+      <v-card-actions>
+        <v-btn block v-on:click.native.stop="close" class="black--text">close</v-btn>
+      </v-card-actions>
     </v-card>
-  </v-modal>
+  </v-dialog>
 </template>
 
 <script>
@@ -21,7 +21,8 @@
       return {
         modal: false,
         countdown: 12,
-        currentTime: "00:55:50"
+        currentTime: "00:55:50",
+        timer: null
       }
     },
     watch: {
@@ -32,11 +33,9 @@
           if(this.scenario.used === undefined){
             this.countdown = this.scenario.countdown
           }else{
-            this.countdown = ((this.scenario.used + this.scenario.countdown) * 1000 - new Date().getTime()) / 1000
+            this.countdown = Math.ceil(((this.scenario.used + this.scenario.countdown) * 1000 - new Date().getTime()) / 1000)
           }
-          
-
-          window.setTimeout(this.ticker, 1000);
+          this.timer = window.setInterval(this.ticker, 1000);
         }
       }
     },
@@ -74,16 +73,17 @@
         return output;
       },
       ticker() {
-        this.countdown = this.countdown - 1
+        this.countdown = Math.ceil(this.countdown - 1)
         this.currentTime = this.formatTime(new Date())
-        if(this.countdown === 0){
+        if(this.countdown == 0){
           this.currentTime = ''
-
-        }else{
-          if(this.modal === true){
-            window.setTimeout(this.ticker, 1000);
-          }
+          window.clearInterval(this.timer)
         }
+      },
+      close() {
+        this.modal = false
+        window.clearInterval(this.timer)
+        this.$emit('close')
       }
     },
     mounted () {

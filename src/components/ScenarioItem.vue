@@ -1,33 +1,26 @@
 <template>
-  <v-card class="ScenarioItem" @click.native.stop="clickSce">
+  <v-card class="ScenarioItem" @click.stop="clickSce">
     <v-card-text v-if="isDisabled" class="disableCard">
-      <v-card-row>
         <div><img height="80rem" :src="imgsrc(scenario.id)" /></div>
         <div class="ml-4">
           <h3 class="ma-0 text-xs-left"><strong>{{ scenario.display_text['zh-TW'] }}</strong></h3>
           <p class="ma-0  text-xs-left">{{ scenario.disabled }}</p>
         </div>
-      </v-card-row>
     </v-card-text>
-    
     <v-card-text v-else-if="isUsed">
-      <v-card-row>
         <div><img height="80rem" class="disableCard" :src="imgsrc(scenario.id)" />
         <img class="tick" height="20rem" src="public/tick.png" /></div>
         <div class="ml-4 disableCard">
           <h3 class="ma-0 text-xs-left"><strong>{{ scenario.display_text['zh-TW'] }}</strong></h3>
           <p class="ma-0  text-xs-left">{{ formatDatetime(scenario.available_time)+" ~ "+formatDatetime(scenario.expire_time) }}</p>
         </div>
-      </v-card-row>
     </v-card-text>
     <v-card-text v-else v-ripple="{class:'ripple--text'}" class="touch">
-      <v-card-row>
         <div><img height="80rem" :src="imgsrc(scenario.id)" /></div>
         <div class="ml-4">
           <h3 class="ma-0 text-xs-left"><strong>{{ scenario.display_text['zh-TW'] }}</strong></h3>
           <p class="ma-0  text-xs-left">{{ formatDatetime(scenario.available_time)+" ~ "+formatDatetime(scenario.expire_time) }}</p>
         </div>
-      </v-card-row>
     </v-card-text>
   </v-card>
 </template>
@@ -78,16 +71,24 @@
         var self = this
         if(!self.isDisabled && !self.isUsed){
           if(self.scenario.used === undefined){
-            if (scenario.countdown > 0) {
-                //showConfirmDialog(scenario);
+            if (self.scenario.countdown > 0) {
+              if (window.confirm("是否已聽從工作人員的指示？")) {
+                self.$emit('use', self.scenario)
+              }
             } else {
-                //use(scenario);
+                self.$emit('use', self.scenario)
             }
           }else{
+            if (new Date().getTime() / 1000 - self.scenario.used < self.scenario.countdown) {
+              self.$emit('startCount', self.scenario)
+            } else {
+              self.$emit('reload')
+            }
             //startCountdownActivity(scenario);
           }
         }
-      }
+      },
+      
     }
   }
 
@@ -96,6 +97,11 @@
 <style scoped>
   .card {
     margin-bottom: 1rem;
+  }
+
+  .card__text > *{
+    display: inline-block;
+    vertical-align: middle;
   }
   
   .disableCard {
