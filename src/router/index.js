@@ -26,7 +26,7 @@ let parameters = function () {
 }
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     { 
       path: '/',
