@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    publicPath: './',
     filename: 'build.js'
   },
   resolve: {
@@ -77,7 +77,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new HtmlWebpackPlugin({
       template: 'index.html',
-      title: 'SITCON 通關',
+      title: 'COSCUP Pass',
       minify: {
         collapseWhitespace: true
       },
