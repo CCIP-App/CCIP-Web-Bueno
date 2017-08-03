@@ -53,6 +53,23 @@
     methods: {
       imgsrc(url) {
         var filename = (url.indexOf('lunch') != -1) ? 'lunch' : url
+        switch (filename) {
+          case 'day1checkin':
+            break;
+          case 'day2checkin':
+            break;
+          case 'kit':
+            break;
+          case 'vipkit':
+            break;
+          case 'checkin':
+            break;
+          case 'lunch':
+            break;
+          default:
+            filename = 'checkin'
+            break;
+        }
         return require('public/' + filename + '.png')
       },
       formatDatetime(time) {

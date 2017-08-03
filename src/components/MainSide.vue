@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer id="mainsidebar" v-model="isActive" persistent enable-resize-watcher>
+  <v-navigation-drawer id="mainsidebar" v-model="isActive" persistent enable-resize-watcher :mini-variant.sync="mini" overflow>
     <div class="sitcon">
       <a href="https://coscup.org/">
         <!-- <img src="~public/conf_logo.png" width="80%" /> -->
@@ -24,6 +24,7 @@
     data() {
       return {
         isActive: true,
+        mini: false,
         items: [{
             title: "快速通關",
             href: "/scenario",

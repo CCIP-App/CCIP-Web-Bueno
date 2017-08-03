@@ -1,5 +1,5 @@
 <template>
-  <v-app left-fixed-sidebar top-fixed-navbar>
+  <v-app standalone>
     
     <main-side v-model="sidebar" v-bind:userid="user"></main-side>
     <main-nav v-bind:title="title"  v-on:sidebar="sidebar = !sidebar"></main-nav>
