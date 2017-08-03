@@ -10,80 +10,98 @@
   </div>
 </template>
 <script>
-  import api from '../modal/apiClient'
-  export default {
-    name: 'Scenario',
-    data() {
+import api from '../modal/apiClient'
+export default {
+  name: 'Scenario',
+  data() {
+    return {
+      "scenarios": [],
+      "hasToken": false,
+      "countSce": null,
+      "countEnable": false
+    }
+  },
+
+  mounted() {
+    this.$emit('view', this.meta())
+  },
+
+  beforeMount() {
+    if ((this.parameters().token || '').length != 0) {
+      console.log('asd')
+      window.localStorage.setItem('ccip-token', this.parameters().token)
+    }
+    this.startScenario()
+  },
+
+  methods: {
+    meta() {
       return {
-        "scenarios": [],
-        "hasToken": false,
-        "countSce": null,
-        "countEnable": false
+        title: '快速通關',
+        userId: window.localStorage.getItem('user_id')
       }
     },
-
-    mounted() {
-      this.$emit('view', this.meta())
-    },
-
-    beforeMount() {
-      this.startScenario()
-    },
-
-    methods: {
-      meta() {
-        return {
-          title: '快速通關',
-          userId: window.localStorage.getItem('user_id')
-        }
-      },
-      startScenario() {
-        var self = this
-        if (window.localStorage.getItem('ccip-token')){
-          self.hasToken = true
-          api.getStatus(window.localStorage.getItem('ccip-token')).then(function(res){
-            window.localStorage.setItem('user_id',res.data['user_id'])
-            self.$emit('view', self.meta())
-            self.scenarios = res.data.scenarios
-          }).catch(function(error){
-            console.log(error)
-            window.alert('錯誤，請檢查網路連線並使用會場網路')
-          })
-        } else {
-          self.hasToken = false
-        }
-      },
-      OnSuccess(result) {
-        window.localStorage.setItem('ccip-token',result)
-        this.startScenario()
-      },
-      useIt(scenario){
-        var self = this
-        api.useScenario(scenario.id, window.localStorage.getItem('ccip-token')).then(function(res){
+    startScenario() {
+      var self = this
+      if (window.localStorage.getItem('ccip-token')) {
+        self.hasToken = true
+        api.getStatus(window.localStorage.getItem('ccip-token')).then(function (res) {
+          window.localStorage.setItem('user_id', res.data['user_id'])
+          self.$emit('view', self.meta())
           self.scenarios = res.data.scenarios
-          if( scenario.countdown > 0 ) {
-            self.startCount(scenario)
-            // startCountdownActivity(scenario);
-          }
-        }).catch(function(error){
+        }).catch(function (error) {
           console.log(error)
           window.alert('錯誤，請檢查網路連線並使用會場網路')
         })
-      },
-      startCount(scenario) {
-        this.countSce = scenario
-        this.countEnable = true
-      },
-      closeCount(){
-        this.countSce = null
-        this.countEnable = false
-      },
-      reload() {
-        this.startScenario()
+      } else {
+        self.hasToken = false
       }
     },
-    
-  }
+    OnSuccess(result) {
+      window.localStorage.setItem('ccip-token', result)
+      this.startScenario()
+    },
+    useIt(scenario) {
+      var self = this
+      api.useScenario(scenario.id, window.localStorage.getItem('ccip-token')).then(function (res) {
+        self.scenarios = res.data.scenarios
+        if (scenario.countdown > 0) {
+          self.startCount(scenario)
+          // startCountdownActivity(scenario);
+        }
+      }).catch(function (error) {
+        console.log(error)
+        window.alert('錯誤，請檢查網路連線並使用會場網路')
+      })
+    },
+    startCount(scenario) {
+      this.countSce = scenario
+      this.countEnable = true
+    },
+    closeCount() {
+      this.countSce = null
+      this.countEnable = false
+    },
+    reload() {
+      this.startScenario()
+    },
+    parameters() {
+      return location.search.split('?').pop().split('&').map(function (p) {
+        var ps = p.split('=');
+        var o = {};
+        o[ps.shift()] = ps.join('=');
+        return o;
+      }).reduce(function (a, b) {
+        var o = a;
+        for (var k in b) {
+          o[k] = b[k];
+        }
+        return o;
+      });
+    }
+  },
+
+}
 
 </script>
 
