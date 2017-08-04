@@ -29,7 +29,11 @@ export default {
   beforeMount() {
     if ((this.parameters().token || '').length != 0) {
       console.log('asd')
-      window.localStorage.setItem('ccip-token', this.parameters().token)
+      try {
+        window.localStorage.setItem('ccip-token', this.parameters().token)
+      } catch (error) {
+        window.alert('請離開 iOS 隱私模式 或 Add to homescreen'); 
+      }
     }
     this.startScenario()
   },
