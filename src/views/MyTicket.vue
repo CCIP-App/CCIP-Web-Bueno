@@ -8,26 +8,24 @@
 </template>
 
 <script>
-  export default {
-    name: 'MyTicket',
-    mounted () {
-      this.$emit('view', this.meta())
-      if(window.localStorage.getItem('ccip-token')){
-        var canvas = document.getElementById('qrcode');
-        window.w69b.qr.encoding.drawOnCanvas(window.localStorage.getItem('ccip-token'), canvas);
-      }
-    },
-    methods: {
-      meta() {
-        return {
-          title: '我的票卷',
-          userId: window.localStorage.getItem('user_id')
-        }
+export default {
+  name: 'MyTicket',
+  mounted () {
+    this.$emit('view', this.meta())
+    if (window.localStorage.getItem('ccip-token')) {
+      var canvas = document.getElementById('qrcode')
+      window.w69b.qr.encoding.drawOnCanvas(window.localStorage.getItem('ccip-token'), canvas)
+    }
+  },
+  methods: {
+    meta () {
+      return {
+        title: '我的票卷',
+        userId: window.localStorage.getItem('user_id')
       }
     }
-
   }
-
+}
 </script>
 
 <style scoped>

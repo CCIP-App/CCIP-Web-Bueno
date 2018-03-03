@@ -16,71 +16,70 @@
 <script>
   export default {
     name: 'CountDown',
-    props: ['scenario','enable'],
+    props: ['scenario', 'enable'],
     data () {
       return {
         modal: false,
         countdown: 12,
-        currentTime: "00:55:50",
+        currentTime: '00:55:50',
         timer: null
       }
     },
     watch: {
-      enable: function(state){
+      enable: function (state) {
         this.modal = state
-        var self = this
-        if(state === true){
-          if(this.scenario.used === undefined){
+        if (state === true) {
+          if (this.scenario.used === undefined) {
             this.countdown = this.scenario.countdown
-          }else{
+          } else {
             this.countdown = Math.ceil(((this.scenario.used + this.scenario.countdown) * 1000 - new Date().getTime()) / 1000)
           }
-          this.timer = window.setInterval(this.ticker, 1000);
+          this.timer = window.setInterval(this.ticker, 1000)
         }
       }
     },
     computed: {
-      diet: function() {
-        if(this.scenario !== null && this.scenario.attr !== undefined){
-          if(this.scenario.attr.diet !== undefined){
-            if(this.scenario.attr.diet === 'meat'){
+      diet: function () {
+        if (this.scenario !== null && this.scenario.attr !== undefined) {
+          if (this.scenario.attr.diet !== undefined) {
+            if (this.scenario.attr.diet === 'meat') {
               return '葷食'
-            }else if(this.scenario.attr.diet === 'vegan'){
+            } else if (this.scenario.attr.diet === 'vegan') {
               return '素食'
             }
-          }else{
+          } else {
             var text = ''
-            for(var prop in this.scenario.attr){
-              text += this.scenario.attr[prop]+"\n"
+            for (var prop in this.scenario.attr) {
+              text += this.scenario.attr[prop] + '\n'
             }
             return text
           }
-        }else{
-          return '';
+        } else {
+          return ''
         }
       }
     },
     methods: {
-      formatTime(time) {
+      formatTime (time) {
         var datetime = time
-        return this.leftpad(datetime.getHours(), 2) + ":" + this.leftpad(datetime.getMinutes(), 2) + ":" + this.leftpad(datetime.getSeconds(), 2)
+        return this.leftpad(datetime.getHours(), 2) + ':' + this.leftpad(datetime.getMinutes(), 2) + ':' + this.leftpad(datetime.getSeconds(), 2)
       },
-      leftpad(number, targetLength) {
-        var output = number + '';
+      leftpad (number, targetLength) {
+        var output = number + ''
         while (output.length < targetLength) {
-          output = '0' + output;
+          output = '0' + output
         }
-        return output;
+        return output
       },
-      ticker() {
+      ticker () {
         this.countdown = Math.ceil(this.countdown - 1)
         this.currentTime = this.formatTime(new Date())
-        if(this.countdown == 0){
+        if (this.countdown === 0) {
           this.currentTime = ''
           window.clearInterval(this.timer)
         }
       },
-      close() {
+      close () {
         this.modal = false
         window.clearInterval(this.timer)
         this.$emit('close')
@@ -89,20 +88,17 @@
     mounted () {
       this.modal = this.enable
 
-      if(this.enable === true){
-        if(this.scenario.used === undefined){
+      if (this.enable === true) {
+        if (this.scenario.used === undefined) {
           this.countdown = this.scenario.countdown
-        }else{
+        } else {
           this.countdown = ((this.scenario.used + this.scenario.countdown) * 1000 - new Date().getTime()) / 1000
         }
-        
-
-        window.setTimeout(this.ticker, 1000);
+        window.setTimeout(this.ticker, 1000)
       }
     }
 
   }
-
 </script>
 
 <style scoped>

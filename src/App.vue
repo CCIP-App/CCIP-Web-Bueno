@@ -1,16 +1,16 @@
 <template>
   <v-app standalone>
-    
+
     <main-side v-model="sidebar" v-bind:userid="user"></main-side>
     <main-nav v-bind:title="title"  v-on:sidebar="sidebar = !sidebar"></main-nav>
 
-    <main>
+    <v-content>
       <v-container fluid class="pa-0">
         <transition name="slide" mode="out-in">
-          <router-view class="mt-5" @view="meta"></router-view>
+          <router-view @view="meta"></router-view>
         </transition>
       </v-container>
-    </main>
+    </v-content>
   </v-app>
 </template>
 
@@ -20,8 +20,8 @@
     data () {
       return {
         sidebar: true,
-        title : "",
-        user: ""
+        title: '',
+        user: ''
       }
     },
 
@@ -33,8 +33,3 @@
     }
   }
 </script>
-
-<style lang="stylus">
-  @import './stylus/main'
-  @import './css/main.css'
-</style>

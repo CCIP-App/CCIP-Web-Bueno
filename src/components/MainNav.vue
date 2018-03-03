@@ -1,6 +1,6 @@
 <template>
   <header>
-    <v-toolbar fixed dark id="main-toolbar">
+    <v-toolbar fixed dark id="main-toolbar" app>
       <v-toolbar-side-icon v-on:click.native.stop="$emit('sidebar')" ></v-toolbar-side-icon>
       <v-toolbar-title>{{title}}</v-toolbar-title>
     </v-toolbar>

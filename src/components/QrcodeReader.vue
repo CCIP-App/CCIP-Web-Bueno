@@ -36,7 +36,7 @@ export default {
       default: 240 + 'px'
     }
   },
-  data() {
+  data () {
     return {
       result: 'Loading...',
       cam: null,
@@ -45,18 +45,18 @@ export default {
     }
   },
   watch: {
-    enable: function(state) {
+    enable: function (state) {
       var self = this
       self.scanner.setStopped(!state)
     }
   },
-  mounted() {
+  mounted () {
     var self = this
-    window.w69b.qr.decoding.setWorkerUrl('public/barcode.js/w69b.qrcode.decodeworker.min.js')
+    window.w69b.qr.decoding.setWorkerUrl('static/barcode.js/w69b.qrcode.decodeworker.min.js')
     if (navigator.mediaDevices && !window.navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
       self.webrtc = true
       self.scanner = new window.w69b.qr.ui.ContinuousScanner()
-      self.scanner.setDecodedCallback(function(result) {
+      self.scanner.setDecodedCallback(function (result) {
         self.onSuccess(result)
       })
       self.scanner.render(document.getElementById('camsource'))
@@ -65,7 +65,7 @@ export default {
       console.log('Sorry, native web camera streaming (getUserMedia) is not supported by this browser...')
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     if (navigator.mediaDevices) {
       var self = this
       self.scanner.setStopped(true)
@@ -73,28 +73,28 @@ export default {
     }
   },
   methods: {
-    onSuccess(result) {
+    onSuccess (result) {
       this.result = result
       this.$emit('OnSuccess', result)
     },
-    uploadChange() {
+    uploadChange () {
       var self = this
       var file = document.getElementById('upload').files[0]
       var imageType = /^image\//
       if (!imageType.test(file.type)) {
         console.log('File type not valid')
       }
-        // Read file
+      // Read file
       var reader = new FileReader()
-      reader.addEventListener('load', function() {
+      reader.addEventListener('load', function () {
         var image = new Image()
-        image.onload = function(imageEvent) {
-            // Resize the image
+        image.onload = function (imageEvent) {
+          // Resize the image
           var decoder = new window.w69b.qr.decoding.Decoder()
-          decoder.decode(image).then(function(result) {
-              // succesfully decoded QR Code.
+          decoder.decode(image).then(function (result) {
+            // succesfully decoded QR Code.
             self.onSuccess(result.text)
-          }, function() {
+          }, function () {
             self.$emit('OnError', 'no qr code found')
           })
         }
@@ -128,7 +128,7 @@ export default {
     min-height: 300px
     @media screen and (max-width: 454px) // must bigger than 454px for two column
       min-height: 150px
-    background: url('~public/uploadfile.png')
+    background: url('../assets/uploadfile.png')
     background-size: cover
     background-repeat: no-repeat
     background-position: center

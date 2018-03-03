@@ -13,39 +13,39 @@
 import api from '../modal/apiClient'
 export default {
   name: 'Scenario',
-  data() {
+  data () {
     return {
-      "scenarios": [],
-      "hasToken": false,
-      "countSce": null,
-      "countEnable": false
+      'scenarios': [],
+      'hasToken': false,
+      'countSce': null,
+      'countEnable': false
     }
   },
 
-  mounted() {
+  mounted () {
     this.$emit('view', this.meta())
   },
 
-  beforeMount() {
-    if ((this.parameters().token || '').length != 0) {
+  beforeMount () {
+    if ((this.parameters().token || '').length !== 0) {
       console.log('asd')
       try {
         window.localStorage.setItem('ccip-token', this.parameters().token)
       } catch (error) {
-        window.alert('請離開 iOS 隱私模式 或 Add to homescreen'); 
+        window.alert('請離開 iOS 隱私模式 或 Add to homescreen')
       }
     }
     this.startScenario()
   },
 
   methods: {
-    meta() {
+    meta () {
       return {
         title: '快速通關',
         userId: window.localStorage.getItem('user_id')
       }
     },
-    startScenario() {
+    startScenario () {
       var self = this
       if (window.localStorage.getItem('ccip-token')) {
         self.hasToken = true
@@ -61,11 +61,11 @@ export default {
         self.hasToken = false
       }
     },
-    OnSuccess(result) {
+    OnSuccess (result) {
       window.localStorage.setItem('ccip-token', result)
       this.startScenario()
     },
-    useIt(scenario) {
+    useIt (scenario) {
       var self = this
       api.useScenario(scenario.id, window.localStorage.getItem('ccip-token')).then(function (res) {
         self.scenarios = res.data.scenarios
@@ -78,35 +78,34 @@ export default {
         window.alert('錯誤，請檢查網路連線並使用會場網路')
       })
     },
-    startCount(scenario) {
+    startCount (scenario) {
       this.countSce = scenario
       this.countEnable = true
     },
-    closeCount() {
+    closeCount () {
       this.countSce = null
       this.countEnable = false
     },
-    reload() {
+    reload () {
       this.startScenario()
     },
-    parameters() {
+    parameters () {
       return location.search.split('?').pop().split('&').map(function (p) {
-        var ps = p.split('=');
-        var o = {};
-        o[ps.shift()] = ps.join('=');
-        return o;
+        var ps = p.split('=')
+        var o = {}
+        o[ps.shift()] = ps.join('=')
+        return o
       }).reduce(function (a, b) {
-        var o = a;
+        var o = a
         for (var k in b) {
-          o[k] = b[k];
+          o[k] = b[k]
         }
-        return o;
-      });
+        return o
+      })
     }
-  },
+  }
 
 }
-
 </script>
 
 <style>

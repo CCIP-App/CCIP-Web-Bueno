@@ -5,9 +5,9 @@ import QrcodeReader from './QrcodeReader.vue'
 import CountDown from './CountDown.vue'
 
 export default{
-    MainNav,
-    MainSide,
-    ScenarioItem,
-    QrcodeReader,
-    CountDown
+  MainNav,
+  MainSide,
+  ScenarioItem,
+  QrcodeReader,
+  CountDown
 }

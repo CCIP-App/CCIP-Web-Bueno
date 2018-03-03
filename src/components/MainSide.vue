@@ -1,7 +1,7 @@
 <template>
-  <v-navigation-drawer id="mainsidebar" v-model="isActive" persistent enable-resize-watcher :mini-variant.sync="mini" overflow>
+  <v-navigation-drawer id="mainsidebar" v-model="isActive" app persistent enable-resize-watcher :mini-variant.sync="mini" overflow>
     <div class="sitcon">
-      <a href="https://coscup.org/">
+      <a href="http://sitcon.org/">
         <!-- <img src="~public/conf_logo.png" width="80%" /> -->
       </a>
       <p>{{ userid }}</p>
@@ -21,63 +21,62 @@
 <script>
   export default {
     name: 'main-side',
-    data() {
+    data () {
       return {
         isActive: true,
         mini: false,
         items: [{
-            title: "快速通關",
-            href: "/scenario",
-            avatar: 'local_activity',
-          },
+          title: '快速通關',
+          href: '/scenario',
+          avatar: 'local_activity'
+        },
           // {
           //   title: "議程",
           //   href: "/schema",
           //   avatar: 'event_note'
           // },
-          {
-            title: "大會訊息",
-            href: "/announcement",
-            avatar: 'announcement'
-          },
-          {
-            title: '開源巔峰挑戰賽',
-            href: '/puzzle',
-            avatar: 'extension'
-          },
-          {
-            title: '我的票卷',
-            href: '/myticket',
-            avatar: 'assignment_ind'
-          },
-          {
-            title: 'Telegram',
-            href: 'https://t.me/COSCUPchat',
-            target: '_blank',
-            avatar: ''
-          },
-          // {
-          //   title: "IRC Log",
-          //   href: "/irclog",
-          //   avatar: 'question_answer'
-          // },
-          // {
-          //   title: "贊助",
-          //   href: "/sponsor",
-          //   avatar: 'redeem'
-          // },
-          // {
-          //   title: "工作人員",
-          //   href: "/staff",
-          //   avatar: 'group'
-          // },
-          {
-            title: 'Star on GitHub',
-            href: 'https://github.com/CCIP-App/CCIP-Web-Bueno',
-            target: '_blank',
-            avatar: 'stars'
-          }
-        ]
+        {
+          title: '大會訊息',
+          href: '/announcement',
+          avatar: 'announcement'
+        },
+        {
+          title: '知識王',
+          href: '/puzzle',
+          avatar: 'extension'
+        },
+        {
+          title: '我的票卷',
+          href: '/myticket',
+          avatar: 'assignment_ind'
+        },
+        {
+          title: 'Telegram',
+          href: 'https://t.me/SITCONgeneral',
+          target: '_blank',
+          avatar: ''
+        },
+        // {
+        //   title: "IRC Log",
+        //   href: "/irclog",
+        //   avatar: 'question_answer'
+        // },
+        // {
+        //   title: "贊助",
+        //   href: "/sponsor",
+        //   avatar: 'redeem'
+        // },
+        // {
+        //   title: "工作人員",
+        //   href: "/staff",
+        //   avatar: 'group'
+        // },
+        {
+          title: 'Star on GitHub',
+          href: 'https://github.com/CCIP-App/CCIP-Web-Bueno',
+          target: '_blank',
+          avatar: 'stars'
+        }]
       }
     },
     props: {
@@ -94,34 +93,35 @@
     }
   }
 </script>
-<style lang="stylus">  
+<style lang="stylus">
   .sitcon
-    background-image: url('~public/nav_header_bg.png')
-    background-size cover
+    // background-image: url('../assets/nav_header_bg.png')
+    // background-size cover
+    background-color: #4F5D60
     height : 180px
     text-align: center
     color: #fff
-    
+
     a
       display: block
       color: #fff
       text-decoration: none
-      background-image: url('~public/conf_logo.png')
+      background-image: url('../assets/sitcon.svg')
       background-size: 80%
       background-position: center
       width: 100%
       height: 100%
-      
+
     .gitter
       margin-bottom: 16px
 
     h1
       color: #fff
-      font-size: 3em 
-    p 
+      font-size: 3em
+    p
       position: relative
       top: -28px;
-      color: black
+      color: white
       margin-left: 16px;
       text-align: left
       font-size: 18px
