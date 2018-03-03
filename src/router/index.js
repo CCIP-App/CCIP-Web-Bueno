@@ -6,6 +6,7 @@ import Scenario from '../views/Scenario.vue'
 import Announcement from '../views/Announcement.vue'
 import Puzzle from '../views/Puzzle.vue'
 import MyTicket from '../views/MyTicket.vue'
+import Irclog from '../views/Irclog.vue'
 
 Vue.use(Router)
 
@@ -41,6 +42,7 @@ export default new Router({
     { path: '/scenario', component: Scenario },
     { path: '/announcement', component: Announcement },
     { path: '/puzzle', component: Puzzle },
-    { path: '/myticket', component: MyTicket }
+    { path: '/myticket', component: MyTicket },
+    { path: '/irclog', component: Irclog }
   ]
 })

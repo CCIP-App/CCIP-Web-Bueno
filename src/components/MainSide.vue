@@ -30,11 +30,12 @@
           href: '/scenario',
           avatar: 'local_activity'
         },
-          // {
-          //   title: "議程",
-          //   href: "/schema",
-          //   avatar: 'event_note'
-          // },
+        {
+          title: '議程',
+          href: 'http://sitcon.org/2018/#/agenda',
+          target: '_blank',
+          avatar: 'event_note'
+        },
         {
           title: '大會訊息',
           href: '/announcement',
@@ -56,21 +57,23 @@
           target: '_blank',
           avatar: ''
         },
-        // {
-        //   title: "IRC Log",
-        //   href: "/irclog",
-        //   avatar: 'question_answer'
-        // },
-        // {
-        //   title: "贊助",
-        //   href: "/sponsor",
-        //   avatar: 'redeem'
-        // },
-        // {
-        //   title: "工作人員",
-        //   href: "/staff",
-        //   avatar: 'group'
-        // },
+        {
+          title: 'IRC Log',
+          href: '/irclog',
+          avatar: 'question_answer'
+        },
+        {
+          title: '贊助',
+          href: 'http://sitcon.org/2018/#/sponsor',
+          target: '_blank',
+          avatar: 'redeem'
+        },
+        {
+          title: '工作人員',
+          href: 'http://sitcon.org/2018/#/staff',
+          target: '_blank',
+          avatar: 'group'
+        },
         {
           title: 'Star on GitHub',
           href: 'https://github.com/CCIP-App/CCIP-Web-Bueno',
