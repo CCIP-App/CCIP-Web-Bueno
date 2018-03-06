@@ -7,6 +7,13 @@
       <qrcode-reader :enable="true" :noResult="true" title="" subTitle="請透過連結開啟此應用程式，你也可以使用下面掃描 KKTIX 提供的 QR Code" @OnSuccess="OnSuccess"></qrcode-reader>
     </div>
     <count-down :scenario="countSce" :enable="countEnable" @close="closeCount"></count-down>
+    <v-snackbar
+            :timeout="timeout"
+            :bottom="true"
+            v-model="snackbar">
+            {{ barText }}
+            <v-btn flat color="pink" @click.native="snackbar = false">Close</v-btn>
+          </v-snackbar>
   </div>
 </template>
 <script>
@@ -15,10 +22,13 @@ export default {
   name: 'Scenario',
   data () {
     return {
-      'scenarios': [],
-      'hasToken': false,
-      'countSce': null,
-      'countEnable': false
+      scenarios: [],
+      hasToken: false,
+      countSce: null,
+      countEnable: false,
+      timeout: 10000,
+      snackbar: false,
+      barText: ''
     }
   },
 
@@ -32,7 +42,8 @@ export default {
       try {
         window.localStorage.setItem('ccip-token', this.parameters().token)
       } catch (error) {
-        window.alert('請離開 iOS 隱私模式 或 Add to homescreen')
+        this.barText = '請離開 iOS 隱私模式 或 Add to homescreen'
+        this.snackbar = true
       }
     }
     this.startScenario()
@@ -55,7 +66,8 @@ export default {
           self.scenarios = res.data.scenarios
         }).catch(function (error) {
           console.log(error)
-          window.alert('錯誤，請檢查網路連線並使用會場網路')
+          self.barText = '錯誤，請檢查網路連線並使用會場網路'
+          self.snackbar = true
         })
       } else {
         self.hasToken = false
@@ -75,7 +87,8 @@ export default {
         }
       }).catch(function (error) {
         console.log(error)
-        window.alert('錯誤，請檢查網路連線並使用會場網路')
+        self.barText = '錯誤，請檢查網路連線並使用會場網路'
+        self.snackbar = true
       })
     },
     startCount (scenario) {

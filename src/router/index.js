@@ -7,6 +7,9 @@ import Announcement from '../views/Announcement.vue'
 import Puzzle from '../views/Puzzle.vue'
 import MyTicket from '../views/MyTicket.vue'
 import Irclog from '../views/Irclog.vue'
+import Schema from '../views/Schema.vue'
+import Sponsor from '../views/Sponsor.vue'
+import Staff from '../views/Staff.vue'
 
 Vue.use(Router)
 
@@ -43,6 +46,9 @@ export default new Router({
     { path: '/announcement', component: Announcement },
     { path: '/puzzle', component: Puzzle },
     { path: '/myticket', component: MyTicket },
-    { path: '/irclog', component: Irclog }
+    { path: '/irclog', component: Irclog },
+    { path: '/agenda', component: Schema },
+    { path: '/sponsor', component: Sponsor },
+    { path: '/staff', component: Staff }
   ]
 })

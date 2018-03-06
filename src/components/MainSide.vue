@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer id="mainsidebar" v-model="isActive" app persistent enable-resize-watcher :mini-variant.sync="mini" overflow>
     <div class="sitcon">
-      <a href="http://sitcon.org/">
+      <a>
         <!-- <img src="~public/conf_logo.png" width="80%" /> -->
       </a>
       <p>{{ userid }}</p>
@@ -23,7 +23,7 @@
     name: 'main-side',
     data () {
       return {
-        isActive: true,
+        isActive: null,
         mini: false,
         items: [{
           title: '快速通關',
@@ -32,8 +32,7 @@
         },
         {
           title: '議程',
-          href: 'http://sitcon.org/2018/#/agenda',
-          target: '_blank',
+          href: '/agenda',
           avatar: 'event_note'
         },
         {
@@ -64,14 +63,12 @@
         },
         {
           title: '贊助',
-          href: 'http://sitcon.org/2018/#/sponsor',
-          target: '_blank',
+          href: '/sponsor',
           avatar: 'redeem'
         },
         {
           title: '工作人員',
-          href: 'http://sitcon.org/2018/#/staff',
-          target: '_blank',
+          href: '/staff',
           avatar: 'group'
         },
         {

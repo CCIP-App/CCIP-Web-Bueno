@@ -1,5 +1,5 @@
 <template>
-  <div id='Schema'>
+  <!-- <div id='Schema'>
     <v-expansion-panel expand>
       <v-expansion-panel-content v-for="(item, index) in schemas" :key="'schemas-'+index">
         <div slot="header">{{ item.time }}</div>
@@ -24,6 +24,9 @@
         </v-card>
       </v-expansion-panel-content>
     </v-expansion-panel>
+  </div> -->
+  <div id='Schema'>
+    <iframe :src="url()" />
   </div>
 </template>
 <script>
@@ -45,11 +48,19 @@ export default {
       return {
         title: '議程'
       }
+    },
+    url () {
+      return 'https://sitcon.org/2018/?mode=app#/agenda'
     }
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+  iframe {
+    border: none;
+    width: 100%;
+    height: calc(100vh - 4.5rem);
+    margin-top: 0.5rem;
+  }
 </style>

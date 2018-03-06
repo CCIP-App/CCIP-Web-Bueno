@@ -21,9 +21,9 @@ export default {
     },
     url () {
       if (window.localStorage.getItem('ccip-token')) {
-        return 'https://king.coscup.org/?mode=app&token=' + this.sha1Gen(window.localStorage.getItem('ccip-token'))
+        return 'https://king.sitcon.party/?mode=app&token=' + window.localStorage.getItem('ccip-token')
       } else {
-        return 'https://king.coscup.org/?token='
+        return 'https://king.sitcon.party'
       }
     },
     sha1Gen (raw) {
