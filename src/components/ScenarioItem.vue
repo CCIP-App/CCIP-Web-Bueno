@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ScenarioItem" @click.stop="clickSce">
+  <v-card class="ScenarioItem" @click.native.stop="clickSce">
     <v-card-text v-if="isDisabled" class="disableCard">
         <div><img height="80rem" :src="imgsrc(scenario.id)" /></div>
         <div class="ml-4">
